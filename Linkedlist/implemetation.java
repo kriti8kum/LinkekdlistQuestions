@@ -5,6 +5,7 @@ public class implemetation {
     public static class Node{
         int data;
         Node next;
+        int size=0;
         Node(int data){
             this.data=data;
         }
@@ -32,6 +33,16 @@ public class implemetation {
                 head = temp;
             }
         }
+
+        void delete(int idx){
+            Node temp = head;
+            
+            for(int i=1; i<=idx-1; i++){
+                temp = temp.next;
+                tail = temp;
+            }
+            temp.next = temp.next.next;
+        }
         void display(){
             Node temp = head;
             while(temp!=null){
@@ -41,7 +52,7 @@ public class implemetation {
             System.out.println();
         }
 
-        int size(){
+        int size(){ // O(n)
             Node temp = head;
             int count = 0;
             while(temp!=null){
@@ -49,6 +60,38 @@ public class implemetation {
                 temp =temp.next;
             }
             return count;
+        }
+        void insertAt(int val, int idx){
+            Node t = new Node(val);
+            Node temp = head;
+            if(idx==size()){
+                insertAtEnd(val);
+                return;
+            } else if(idx==0){
+                insertAddAtHead(val);
+                return;
+            }else if(idx<0 || idx >0){
+                System.out.println("worng indedx");
+            }
+            for(int i = 1; i<= idx-1; i++){
+                temp = temp.next;
+
+            }
+            t.next = temp.next;
+            temp.next = t;
+
+        }
+        int getAt(int idx){
+            if(idx<0 || idx>size()){
+                System.out.println("wrong index");
+                return -1;
+            }
+            Node temp = head;
+        
+            for(int i =1; i<=idx; i++){
+                temp=temp.next;
+            }
+            return temp.data;
         }
     }
 
@@ -72,5 +115,8 @@ public class implemetation {
         sc.insertAddAtHead(8);
         sc.display();
 
+        System.out.println(sc.getAt(-1));
+        sc.delete(3);
+        sc.display();
     }
 }
